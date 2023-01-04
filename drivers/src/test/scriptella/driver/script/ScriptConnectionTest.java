@@ -77,7 +77,7 @@ public class ScriptConnectionTest extends AbstractTestCase {
     public void testConfiguration() {
         //JavaScript(ECMAScript) should be used by default
         Connection c = new Driver().connect(new MockConnectionParameters());
-        assertEquals("ECMAScript", c.getDialectIdentifier().getName());
+        assertEquals("Groovy", c.getDialectIdentifier().getName());
         //now tests wrong name
         try {
             new Driver().connect(new MockConnectionParameters(

@@ -83,7 +83,7 @@ public class ScriptConnection extends AbstractConnection {
         ScriptEngineManager scriptEngineManager = new ScriptEngineManager(ScriptConnection.class.getClassLoader());
         if (StringUtils.isEmpty(lang)) { //JavaScript is used by default
             LOG.fine("Script language was not specified. JavaScript is default.");
-            lang = "js";
+            lang = "groovy";
         }
 
         ScriptEngine engine = scriptEngineManager.getEngineByName(lang);
@@ -157,6 +157,7 @@ public class ScriptConnection extends AbstractConnection {
                 try {
                     cache.put(resource, script = engineWrapper.compile(resource.open()));
                 } catch (ScriptException e) {
+                    LOG.severe(e.getMessage());
                     throw new ScriptProviderException("Failed to compile script", e, getErrorStatement(resource, e));
                 }
             }
