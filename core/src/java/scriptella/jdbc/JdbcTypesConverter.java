@@ -171,7 +171,7 @@ class JdbcTypesConverter implements Closeable {
 
     protected void registerResource(Closeable resource) {
         if (resources == null) {
-            resources = new ArrayList<Closeable>();
+            resources = new ArrayList<>();
         }
         resources.add(resource);
     }

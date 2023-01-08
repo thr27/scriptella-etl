@@ -82,9 +82,8 @@ public class BatchEtlExecutorBean implements Runnable, InitializingBean, BeanFac
      * Sets configuration locations.
      *
      * @param resources configuration resources.
-     * @throws java.io.IOException if I/O error occurs
      */
-    public void setConfigLocations(Resource[] resources) throws IOException {
+    public void setConfigLocations(Resource[] resources) {
         configLocations = resources;
     }
 

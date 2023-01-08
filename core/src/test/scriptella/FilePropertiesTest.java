@@ -40,7 +40,7 @@ public class FilePropertiesTest extends DBTestCase {
 
     public void test() throws EtlExecutorException {
         final Connection con = getConnection("fileproptst");
-        AbstractTestCase.testURLHandler = new TestURLHandler() {
+        testURLHandler = new TestURLHandler() {
             public InputStream getInputStream(final URL u) {
                 return new ByteArrayInputStream(FILE);
             }

@@ -48,7 +48,7 @@ public class SQLSupportPerfTest extends DBTestCase {
      */
     public void test() throws EtlExecutorException {
         getConnection("sqlsupport");
-        AbstractTestCase.testURLHandler = new TestURLHandler() {
+        testURLHandler = new TestURLHandler() {
             public InputStream getInputStream(final URL u) {
                 return new RepeatingInputStream(SQL, 50000);
             }
@@ -78,7 +78,7 @@ public class SQLSupportPerfTest extends DBTestCase {
     public void testCompare() throws EtlExecutorException, SQLException, IOException {
         final int n = 20000;
         Connection con = getConnection("sqlsupport");
-        AbstractTestCase.testURLHandler = new TestURLHandler() {
+        testURLHandler = new TestURLHandler() {
             public InputStream getInputStream(final URL u) {
                 return new RepeatingInputStream(SQL2, n);
             }
@@ -127,7 +127,7 @@ public class SQLSupportPerfTest extends DBTestCase {
     public void testBulkUpdates() throws EtlExecutorException {
         //50000 identical statements
         getConnection("sqlsupport");
-        AbstractTestCase.testURLHandler = new TestURLHandler() {
+        testURLHandler = new TestURLHandler() {
             public InputStream getInputStream(final URL u) {
                 return new RepeatingInputStream(SQL3, 50000);
             }

@@ -47,7 +47,7 @@ public class Driver extends GenericDriver {
     }
 
     @Override
-    protected java.sql.Connection getConnection(String url, Properties props) throws SQLException {
+    protected java.sql.Connection getConnection(String url, Properties props) {
         if (url == null) {
             throw new SpringProviderException("Name of the spring bean must be specified in an url attribute of connection element.");
         }

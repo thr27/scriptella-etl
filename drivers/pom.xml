@@ -59,8 +59,15 @@
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
-            <artifactId>spring</artifactId>
+            <artifactId>spring-context</artifactId>
             <optional>true</optional>
+            <version>4.3.26.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jdbc</artifactId>
+            <optional>true</optional>
+            <version>4.3.26.RELEASE</version>
         </dependency>
         <dependency>
             <groupId>org.apache.velocity</groupId>

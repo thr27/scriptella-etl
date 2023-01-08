@@ -39,7 +39,7 @@ import java.util.Map;
  * @version 1.0
  */
 public class Session {
-    Map<String, ConnectionManager> managedConnections = new HashMap<String, ConnectionManager>();
+    Map<String, ConnectionManager> managedConnections = new HashMap<>();
     private List<ExecutableElement> executors;
     private List<Location> locations;
 
@@ -64,8 +64,8 @@ public class Session {
         final List<ScriptingElement> scripts = configuration.getScriptingElements();
         progressCallback = ctx.getProgressCallback().fork(50, scripts.size());
 
-        executors = new ArrayList<ExecutableElement>(scripts.size());
-        locations = new ArrayList<Location>(scripts.size());
+        executors = new ArrayList<>(scripts.size());
+        locations = new ArrayList<>(scripts.size());
 
         for (ScriptingElement s : scripts) {
             locations.add(s.getLocation());

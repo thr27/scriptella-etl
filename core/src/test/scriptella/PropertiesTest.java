@@ -58,7 +58,7 @@ public class PropertiesTest extends AbstractTestCase {
         assertEquals("jdbc:hsqldb:mem:propertiestest", ctx.getParameter("url"));
         assertEquals("sa", ctx.getParameter("user"));
         assertEquals("", ctx.getParameter("password"));
-        Map<String,String> extra = new HashMap<String, String>();
+        Map<String,String> extra = new HashMap<>();
         extra.put("var", "2");
         se = prepareExecutor(extra);
         se.execute();
