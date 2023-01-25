@@ -48,24 +48,26 @@ public class ConnectionManager {
     public ConnectionManager(EtlContext ctx, ConnectionEl c) {
         //Obtains a classloader
         ClassLoader cl = getClass().getClassLoader();
-        if (c.getClasspath() != null) { //if classpath specified
-            //Parse it and create a new classloader
-            UrlPathTokenizer tok = new UrlPathTokenizer(ctx.getScriptFileURL());
-            try {
-                final URL[] urls = tok.split(c.getClasspath());
-                if (urls.length > 0) {
-                    cl = new DriverClassLoader(urls);
-                }
-            } catch (Exception e) {
-                throw new ConfigurationException("Unable to parse classpath parameter for " + c, e);
-            }
-        }
         connectionParameters = new ConnectionParameters(c, ctx);
         try {
             driver = DriverFactory.getDriver(c.getDriver(), cl);
         } catch (ClassNotFoundException e) {
-            throw new ConfigurationException("Driver class " + c.getDriver() + " not found for " + connectionParameters +
-                    ".Please check if the class name is correct and required libraries available on classpath", e);
+            if (c.getClasspath() != null) { //if classpath specified
+                //Parse it and create a new classloader
+                UrlPathTokenizer tok = new UrlPathTokenizer(ctx.getScriptFileURL());
+                try {
+                    final URL[] urls = tok.split(c.getClasspath());
+                    if (urls.length > 0) {
+                        cl = new DriverClassLoader(urls);
+                    }
+                    driver = DriverFactory.getDriver(c.getDriver(), cl);
+                } catch (Exception ex) {
+                    throw new ConfigurationException("Unable to parse classpath parameter for " + c, ex);
+                }
+            } else {
+                throw new ConfigurationException("Driver class " + c.getDriver() + " not found for " + connectionParameters +
+                        ".Please check if the class name is correct and required libraries available on classpath", e);
+            }
         } catch (Exception e) {
             throw new ConfigurationException("Unable to initialize driver for " + connectionParameters + ":" + e.getMessage(), e);
         }
@@ -101,7 +103,7 @@ public class ConnectionManager {
         for (Connection c : getAllConnections()) {
             try {
                 if (LOG.isDebugEnabled()) {
-                    LOG.info("Rolling back " + c);
+                    LOG.debug("Rolling back " + c);
                 }
                 if (c instanceof JdbcConnection) {
                     c.rollback();
@@ -119,7 +121,7 @@ public class ConnectionManager {
     public void commit() {
         for (Connection c : getAllConnections()) {
             if (LOG.isDebugEnabled()) {
-                LOG.info("Commiting connection " + c);
+                LOG.debug("Commiting connection " + c);
             }
             c.commit();
         }
@@ -130,7 +132,7 @@ public class ConnectionManager {
             if (c != null) {
                 try {
                     if (LOG.isDebugEnabled()) {
-                        LOG.info("Closing " + c);
+                        LOG.debug("Closing " + c);
                     }
                     c.close();
                 } catch (Exception e) {
