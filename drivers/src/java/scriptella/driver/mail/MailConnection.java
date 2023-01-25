@@ -126,7 +126,7 @@ public class MailConnection extends AbstractConnection {
         session = Session.getInstance(properties);
 
         if (LOG.isDebugEnabled()) {
-            LOG.info("Mail session initialized");
+            LOG.debug("Mail session initialized");
         }
     }
 
@@ -153,7 +153,7 @@ public class MailConnection extends AbstractConnection {
             }
         } else {
             if (LOG.isDebugEnabled()) {
-                LOG.info("Sending a message to " + addresslist);
+                LOG.debug("Sending a message to " + addresslist);
             }
             try {
                 send(mimeMessage);

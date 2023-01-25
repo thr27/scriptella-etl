@@ -77,7 +77,7 @@ public final class IfInterceptor extends ElementInterceptor {
             executeNext(ctx);
         } else {
             if (LOG.isDebugEnabled()) {
-                LOG.info("if=\""+expression.getExpression()+"\" is false, element body is skipped.");
+                LOG.debug("if=\""+expression.getExpression()+"\" is false, element body is skipped.");
             }
         }
     }

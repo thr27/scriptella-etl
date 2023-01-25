@@ -90,7 +90,7 @@ public class SearchFilterQuery implements ParametersCallback {
         //Using standard properties substitutor, may be change to something similar to JDBC parameters
         final String sFilter = substitutor.substitute(filter);
         if (LOG.isDebugEnabled()) {
-            LOG.info("Running a query for search filter " + sFilter);
+            LOG.debug("Running a query for search filter " + sFilter);
         }
         try {
             iterate(query(connection, sFilter));
@@ -113,7 +113,7 @@ public class SearchFilterQuery implements ParametersCallback {
             while (ne.hasMoreElements()) {
                 result = ne.nextElement();
                 if (LOG.isDebugEnabled()) {
-                    LOG.info("Processing search result: " + result);
+                    LOG.debug("Processing search result: " + result);
                 }
                 queryCallback.processRow(this); //notifying a callback
             }

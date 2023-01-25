@@ -27,6 +27,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.Map;
+import java.util.Objects;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -157,13 +158,7 @@ public class ConfigurationFactory {
             sb.append("XML configuration warning in ");
 
             final String sid = exception.getSystemId();
-
-            if (sid != null) {
-                sb.append(sid);
-            } else {
-                sb.append("the document");
-            }
-
+            sb.append(Objects.requireNonNullElse(sid, "the document"));
             sb.append('(');
             sb.append(exception.getLineNumber());
             sb.append(':');
@@ -175,7 +170,7 @@ public class ConfigurationFactory {
         }
 
         public void fatalError(final SAXParseException exception) {
-            LOG.debug(messageFor(exception));
+            LOG.error(messageFor(exception));
         }
     };
 

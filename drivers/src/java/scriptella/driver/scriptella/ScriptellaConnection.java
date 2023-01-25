@@ -96,13 +96,13 @@ public class ScriptellaConnection extends AbstractConnection {
         } else {
             try {
                 if (LOG.isDebugEnabled()) {
-                    LOG.info("Executing Scriptella ETL file " + u);
+                    LOG.debug("Executing Scriptella ETL file " + u);
                 }
                 configurationFactory.setResourceURL(u);
                 configurationFactory.setExternalParameters(callback);
                 ExecutionStatistics st = new EtlExecutor(configurationFactory.createConfiguration()).execute();
                 if (LOG.isDebugEnabled()) {
-                    LOG.info("Completed ETL file execution.\n" + st);
+                    LOG.debug("Completed ETL file execution.\n" + st);
                 }
             } catch (EtlExecutorException e) {
                 throw new ScriptellaProviderException("Failed to execute script " + u + " : " + e.getMessage(), e);

@@ -161,7 +161,7 @@ public class LdapConnection extends AbstractConnection {
      */
     protected void initializeContext(Hashtable<String, Object> env) {
         if (LOG.isDebugEnabled()) {
-            LOG.info("Creating initial context, environment: " + env);
+            LOG.debug("Creating initial context, environment: " + env);
         }
         try {
             ctx = new InitialDirContext(env);

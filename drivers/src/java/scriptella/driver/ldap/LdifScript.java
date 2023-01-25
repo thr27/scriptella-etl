@@ -118,7 +118,7 @@ public class LdifScript {
      */
     static void modify(DirContext ctx, final Entry e) throws NamingException {
         if (LOG.isDebugEnabled()) {
-            LOG.info("Processing " + e);
+            LOG.debug("Processing " + e);
         }
         Attributes atts = e.getAttributes();
         final String rootDn = ctx.getNameInNamespace();

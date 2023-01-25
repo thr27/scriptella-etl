@@ -175,7 +175,7 @@ public class JdbcConnection extends AbstractConnection implements NativeConnecti
             statusMsg.append("Flushing before query execution is enabled.");
         }
 
-        LOG.info(statusMsg.toString());
+        LOG.debug(statusMsg.toString());
 
 
         parametersParser = new ParametersParser(parameters.getContext());

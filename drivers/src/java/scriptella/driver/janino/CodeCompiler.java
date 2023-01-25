@@ -105,7 +105,7 @@ final class CodeCompiler {
         // TODO Add propoer support for Janino 3 as part of JDK11 upgrade #31
         } catch (Throwable e) {
             //BUG-36290 Error with Janino 2.6.0
-            LOG.debug("Error statement cannot be determined due to " + e + ". Try upgrading Janino to version 2.6 or newer.");
+            LOG.error("Error statement cannot be determined due to " + e + ". Try upgrading Janino to version 2.6 or newer.");
         }
         return pe;
     }

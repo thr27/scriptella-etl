@@ -132,9 +132,7 @@ class SqlExecutor extends SqlParserBase implements Closeable {
             }
             logExecutedStatement(sql, params, updatedRows);
             if (connection.autocommitSize > 0 && (counter.statements % connection.autocommitSize == 0)) {
-                if (LOG.isDebugEnabled()) {
-                    LOG.info("Committing transaction after " + connection.autocommitSize + " statements");
-                }
+                LOG.info("Committing transaction after " + connection.autocommitSize + " statements");
                 connection.commit();
             }
         } catch (SQLException e) {

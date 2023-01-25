@@ -155,7 +155,7 @@ public class DataMigrator extends TemplateManager {
                 }
             }
             if (DEBUG) {
-                LOG.info("Tables dependencies matrix: \n" + msg);
+                LOG.debug("Tables dependencies matrix: \n" + msg);
             }
 
             boolean free[] = new boolean[n];

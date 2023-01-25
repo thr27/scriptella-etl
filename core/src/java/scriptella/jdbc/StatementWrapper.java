@@ -138,9 +138,7 @@ abstract class StatementWrapper<T extends Statement> implements Closeable {
                 result += r;
             }
         }
-        if (LOG.isDebugEnabled()) {
-            LOG.info("Batch of " + results.length + " statements executed.");
-        }
+        LOG.info("Batch of " + results.length + " statements executed.");
         return result;
     }
 

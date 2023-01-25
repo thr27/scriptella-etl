@@ -44,7 +44,7 @@ public class GenericDriver extends AbstractScriptellaDriver {
             if (DriverManager.getLogWriter() == null) {
                 DriverManager.setLogWriter(new PrintWriter(System.out) {
                     public void println(String s) {
-                        LOG.info(s);
+                        LOG.debug(s);
                     }
                 });
 
@@ -70,7 +70,7 @@ public class GenericDriver extends AbstractScriptellaDriver {
                         Class.forName(name, true, Thread.currentThread().getContextClassLoader());
                     }
                     if (debug) {
-                        LOG.info("Found driver class " + name);
+                        LOG.debug("Found driver class " + name);
                     }
                     throwable = null;
                     break;
