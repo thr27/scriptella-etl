@@ -15,15 +15,15 @@
  */
 package scriptella.driver.spring;
 
+import scriptella.interactive.ProgressIndicator;
+
+import java.util.Map;
+
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.BeanFactoryAware;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.core.io.Resource;
-import scriptella.interactive.ProgressIndicator;
-
-import java.io.IOException;
-import java.util.Map;
 
 /**
  * Batched implementation to run {@link scriptella.execution.EtlExecutor ETL executors} for Spring IoC container.

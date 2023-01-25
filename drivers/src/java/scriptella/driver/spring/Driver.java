@@ -20,7 +20,6 @@ import scriptella.jdbc.GenericDriver;
 import scriptella.util.StringUtils;
 
 import javax.sql.DataSource;
-import java.sql.SQLException;
 import java.util.Properties;
 
 /**

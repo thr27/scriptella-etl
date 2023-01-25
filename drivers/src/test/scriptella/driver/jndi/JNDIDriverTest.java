@@ -23,7 +23,6 @@ import scriptella.spi.ConnectionParameters;
 import scriptella.spi.MockDriverContext;
 
 import javax.naming.Context;
-import javax.naming.NamingException;
 import javax.naming.spi.InitialContextFactory;
 import javax.sql.DataSource;
 import java.lang.reflect.InvocationHandler;
