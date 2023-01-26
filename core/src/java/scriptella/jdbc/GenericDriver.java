@@ -39,7 +39,7 @@ public class GenericDriver extends AbstractScriptellaDriver {
 
     static {
         //Redirects DriverManager's logging
-        final Logger LOG = LoggerFactory.getLogger("scriptella.DriverManagerLog");
+        final Logger LOG = LoggerFactory.getLogger("scriptella.Driver.LOG");
         if (LOG.isDebugEnabled()) {
             if (DriverManager.getLogWriter() == null) {
                 DriverManager.setLogWriter(new PrintWriter(System.out) {
