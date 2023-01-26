@@ -47,13 +47,9 @@ public class EtlExecutorBean extends EtlExecutor implements InitializingBean, Be
 
     private static Logger logger = LoggerFactory.getLogger(EtlExecutorBean.class);
 
-    private static final String BEAN_FACTORY_XML_PATH = "classpath:scriptella/driver/spring/beanFactory.xml";
-    private static final String FACTORY_BEAN_NAME = "scriptella.driver.spring.factory";
-    private static final String THREAD_LOCAL_BEAN_NAME = "scriptella.driver.spring.threadLocal";
-
     private static BeanFactory beanFactory;
     private ProgressIndicator progressIndicator;
-    private boolean autostart;
+    protected boolean autostart;
     private Map<String, ?> properties;
     private URL configLocation;
 
@@ -110,9 +106,10 @@ public class EtlExecutorBean extends EtlExecutor implements InitializingBean, Be
     public void afterPropertiesSet() throws Exception {
 
         if (getConfiguration() == null) {
-            if (configLocation == null) {
+            if (autostart && configLocation == null) {
                 throw new IllegalStateException("configLocation must be specified");
-            } else { //Initialize configuration
+            }
+            if (configLocation != null) { //Initialize configuration
                 ConfigurationFactory cf = new ConfigurationFactory();
                 cf.setResourceURL(configLocation);
                 cf.setExternalParameters(properties);
