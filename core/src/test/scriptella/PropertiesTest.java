@@ -54,7 +54,6 @@ public class PropertiesTest extends AbstractTestCase {
         assertEquals("jdbc:hsqldb:mem", ctx.getParameter("url.prefix"));
         assertEquals("propertiestest", ctx.getParameter("dbname"));
         assertEquals("org.hsqldb.jdbcDriver", ctx.getParameter("driver"));
-        assertEquals("org.hsqldb.jdbcDriver", ctx.getParameter("driver"));
         assertEquals("jdbc:hsqldb:mem:propertiestest", ctx.getParameter("url"));
         assertEquals("sa", ctx.getParameter("user"));
         assertEquals("", ctx.getParameter("password"));

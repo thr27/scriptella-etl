@@ -39,7 +39,8 @@ import java.util.Map;
  * @version 1.0
  */
 public class Session {
-    Map<String, ConnectionManager> managedConnections = new HashMap<>();
+
+    private Map<String, ConnectionManager> managedConnections = new HashMap<>();
     private List<ExecutableElement> executors;
     private List<Location> locations;
 
@@ -142,4 +143,9 @@ public class Session {
             }
         }
     }
+
+    public Map<String, ConnectionManager> getManagedConnections() {
+        return managedConnections;
+    }
+
 }
