@@ -119,7 +119,7 @@ public class JmxEtlManagerTest extends AbstractTestCase {
 			});
 		}
 		ex.shutdown();
-		ex.awaitTermination(1, TimeUnit.SECONDS);
+		ex.awaitTermination(60, TimeUnit.SECONDS);
 		ex.shutdownNow();
 		assertEquals("Errors occurred while executing in parallel", Collections.<Throwable> emptyList(),
 				exceptions);

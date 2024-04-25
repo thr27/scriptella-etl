@@ -24,7 +24,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URL;
-
+import java.util.Locale;
 /**
  * Tests CSV column formatting.
  *
@@ -33,7 +33,8 @@ import java.net.URL;
  */
 public class CsvFormattingITest extends DBTestCase {
     public void test() throws EtlExecutorException {
-        getConnection("csv");//Call just to close the DB
+        Locale.setDefault(new Locale("en", "US"));
+        getConnection("csv;locale=en_US");//Call just to close the DB
         final ByteArrayOutputStream out = new ByteArrayOutputStream();
         testURLHandler = new TestURLHandler() {
             public InputStream getInputStream(final URL u) {

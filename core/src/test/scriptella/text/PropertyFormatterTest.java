@@ -6,7 +6,6 @@ import scriptella.spi.support.MapParametersCallback;
 
 import java.util.HashMap;
 import java.util.Map;
-
 /**
  * Tests for {@link PropertyFormatter}.
  *
@@ -30,6 +29,7 @@ public class PropertyFormatterTest extends TestCase {
         formatsMap.put("padNumbercol2.pattern", "0.0");
         formatsMap.put("padNumbercol2.pad_left", "5");
         formatsMap.put("padNumbercol2.pad_char", "_");
+        formatsMap.put("locale", "en_US");  
 
         props = new TypedPropertiesSource(formatsMap);
     }
@@ -88,6 +88,7 @@ public class PropertyFormatterTest extends TestCase {
 
         PropertyFormatInfo fi = PropertyFormatInfo.parse(props, "");
         PropertyFormatter cf = new PropertyFormatter(fi);
+        
         Object result = cf.format("nullStrCol", "");
         assertEquals("Unmodified value is expected", "", result);
         result = cf.format("nullStrCol", null);
@@ -153,6 +154,7 @@ public class PropertyFormatterTest extends TestCase {
     public void testDefaults() {
         formatsMap.put("pad_left", "10");
         formatsMap.put("pad_char", "_");
+
         PropertyFormatInfo fi = PropertyFormatInfo.parse(props, "");
         PropertyFormatter pf = new PropertyFormatter(fi);
         final String s = pf.format("numbercol", 2);

@@ -18,23 +18,27 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.scriptella</groupId>
+        <groupId>de.fti-ticketshop</groupId>
         <artifactId>scriptella-parent</artifactId>
-        <version>1.3-SNAPSHOT</version>
+        <version>1.3.99-SNAPSHOT</version>
     </parent>
 
     <artifactId>scriptella-tools</artifactId>
 
     <name>Scriptella Tools</name>
-
+    <properties>
+        <slf4jVersion>2.0.13</slf4jVersion>
+    </properties>
     <dependencies>
         <dependency>
-            <groupId>org.scriptella</groupId>
+            <groupId>de.fti-ticketshop</groupId>
             <artifactId>scriptella-core</artifactId>
+            <version>1.3.99-SNAPSHOT</version>
         </dependency>
         <dependency>
-            <groupId>org.scriptella</groupId>
+            <groupId>de.fti-ticketshop</groupId>
             <artifactId>scriptella-core</artifactId>
+            <version>1.3.99-SNAPSHOT</version>
             <type>test-jar</type>
             <scope>test</scope>
         </dependency>
@@ -58,5 +62,17 @@
             <artifactId>hsqldb</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4jVersion}</version>
+            
+        </dependency>
+        <!-- dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>${slf4jVersion}</version>
+            <scope>runtime</scope>
+        </dependency -->
     </dependencies>
 </project>

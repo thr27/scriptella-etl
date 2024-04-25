@@ -78,6 +78,7 @@ public class PropertyFormatTest extends TestCase {
 
     public void testTimestampFormat() {
         PropertyFormat ci = new PropertyFormat();
+        ci.setLocale(Locale.US);
         ci.setType("timestamp");
 
         String expectedStr = "2012-05-25 01:02:03.0";
@@ -98,6 +99,7 @@ public class PropertyFormatTest extends TestCase {
 
     public void testPad() {
         PropertyFormat ci = new PropertyFormat();
+        ci.setLocale(Locale.US);
         ci.setType("number");
         ci.setPattern("0.0");
         ci.setPadLeft(5);

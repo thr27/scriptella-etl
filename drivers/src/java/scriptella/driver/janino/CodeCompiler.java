@@ -60,7 +60,8 @@ final class CodeCompiler {
             evaluator.setThrownExceptions(THROWN_EXCEPTIONS);
             evaluator.setParentClassLoader(getClass().getClassLoader());
             Class<?> type = query ? JaninoQuery.class : JaninoScript.class;
-            evaluator.setExtendedType(type);
+            //evaluator.setExtendedType(type);
+            evaluator.setExtendedClass(type);
             evaluator.setStaticMethod(false);
             evaluator.setMethodName("execute");
             evaluator.setClassName(type.getName() + "_Generated");
@@ -79,7 +80,7 @@ final class CodeCompiler {
             }
             Class<?> cl = evaluator.getMethod().getDeclaringClass();
             try {
-                ctx = cl.newInstance();
+                ctx = cl.getDeclaredConstructor().newInstance();
             } catch (Exception e) {
                 throw new JaninoProviderException("Unable to instantiate compiled class", e);
             }

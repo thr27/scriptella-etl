@@ -19,24 +19,31 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.scriptella</groupId>
+        <groupId>de.fti-ticketshop</groupId>
         <artifactId>scriptella-parent</artifactId>
-        <version>1.3-SNAPSHOT</version>
+        <version>1.3.99-SNAPSHOT</version>
     </parent>
 
     <artifactId>scriptella-drivers</artifactId>
 
     <name>Scriptella Drivers</name>
-
+    <properties>
+        <slf4jVersion>2.0.13</slf4jVersion>
+        <scriptellaCoreVersion>1.3.99-SNAPSHOT</scriptellaCoreVersion>
+        <groovyVersion>4.0.6</groovyVersion>
+        <springContextVersion>6.1.6</springContextVersion>
+        <springJdbcVersion>6.1.6</springJdbcVersion>
+    </properties>
     <dependencies>
         <dependency>
-            <groupId>org.scriptella</groupId>
+            <groupId>de.fti-ticketshop</groupId>
             <artifactId>scriptella-core</artifactId>
+            <version>${scriptellaCoreVersion}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.groovy</groupId>
             <artifactId>groovy-jsr223</artifactId>
-            <version>4.0.6</version>
+            <version>${groovyVersion}</version>
         </dependency>
 
         <dependency>
@@ -58,13 +65,13 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
             <optional>true</optional>
-            <version>5.3.16</version>
+            <version>${springContextVersion}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-jdbc</artifactId>
             <optional>true</optional>
-            <version>5.3.16</version>
+            <version>${springJdbcVersion}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.velocity</groupId>
@@ -81,11 +88,37 @@
         </dependency>
 
         <dependency>
-            <groupId>org.scriptella</groupId>
+            <groupId>de.fti-ticketshop</groupId>
             <artifactId>scriptella-core</artifactId>
+            <version>1.3.99-SNAPSHOT</version>
             <type>test-jar</type>
             <scope>test</scope>
         </dependency>
+        <!-- dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4jVersion}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>${slf4jVersion}</version>
+            <scope>provided</scope>
+        </dependency -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4jVersion}</version>
+            
+        </dependency>
+        <!-- dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>${slf4jVersion}</version>
+            <scope>runtime</scope>
+        </dependency -->
+
         <dependency>
             <groupId>commons-logging</groupId>
             <artifactId>commons-logging</artifactId>

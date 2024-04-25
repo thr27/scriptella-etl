@@ -1,0 +1,28 @@
+<settings>
+    <servers>
+      <server>
+        <id>gitlab-com-maven</id>
+        <configuration>
+          <httpHeaders>
+            <property>
+               <!-- Private Access Token rtu0fti: maven -->
+              <name>Private-Token</name>
+              <value>glpat-wxtgg_XKYBCBd9w_yy8Y</value>
+            </property>
+          </httpHeaders>
+        </configuration>
+      </server>
+      <server>
+        <id>gitlab-fti-maven</id>
+        <configuration>
+          <httpHeaders>
+            <property>
+               <!-- Private Access Token rtu: maven -->
+              <name>Private-Token</name>
+              <value>glpat-XiCNFxz4dzjXMnivfXzC</value>
+            </property>
+          </httpHeaders>
+        </configuration>
+      </server>
+    </servers>
+  </settings>

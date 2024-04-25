@@ -18,18 +18,19 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.scriptella</groupId>
+    <groupId>de.fti-ticketshop</groupId>
     <artifactId>scriptella-parent</artifactId>
-    <version>1.3-SNAPSHOT</version>
+    <version>1.3.99-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>Scriptella</name>
     <description>
+        Custom version: fti-ticketshop.de based on: https://github.com/amaxz/scriptella-etl 
         Scriptella is an open source ETL (Extract-Transform-Load) and script execution tool written in Java.
         Our primary focus is simplicity. You don't have to study yet another complex XML-based language - use SQL (or
         other scripting language suitable for the data source) to perform required transformations.
     </description>
-    <url>https://scriptella.org/</url>
+    <url>${gitlabUrl}/${project.artifactId}</url>
     <inceptionYear>2006</inceptionYear>
     <licenses>
         <license>
@@ -40,6 +41,14 @@
     </licenses>
 
     <developers>
+        <developer>
+            <id>${developerId}</id>
+            <name>Robert Thurnreiter</name>
+            <email>robert.thurnreiter@fti.de</email>
+            <roles>
+                <role>developer custom version</role>
+            </roles>
+        </developer>        
         <developer>
             <id>ejboy</id>
             <name>Fyodor Kupolov</name>
@@ -60,8 +69,8 @@
     </modules>
 
     <scm>
-        <connection>scm:git:git://github.com/amaxz/scriptella-etl.git</connection>
-        <developerConnection>scm:git:git@github.com:amaxz/scriptella-etl.git</developerConnection>
+        <connection>scm:git:ssh://git@${gitlabPath}/${project.artifactId}.git</connection>
+        <developerConnection>scm:git:ssh://git@${gitlabPath}/${project.artifactId}.git</developerConnection>
         <url>https://github.com/amaxz/scriptella-etl/tree/master</url>
         <tag>HEAD</tag>
     </scm>
@@ -75,37 +84,94 @@
         <!--
             See https://issues.sonatype.org/browse/OSSRH-51637 (previous OSSRH-413)
          -->
-        <repository>
+        <!-- repository>
             <id>scriptella-releases</id>
             <name>Scriptella Central Repository</name>
             <url>http://oss.sonatype.org/service/local/staging/deploy/maven2</url>
-        </repository>
-        <snapshotRepository>
+        </repository -->
+        <!-- snapshotRepository>
             <id>scriptella-snapshots</id>
             <name>Scriptella Central Development Repository</name>
             <url>http://oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository -->
+        <repository>
+            <id>${gitlabSettingsServer}</id>
+            <url>${gitlabApi}/${gitlabGroupId}/packages/maven</url>
+          </repository>
+          <site>
+            <id>local</id>
+            <name>Local Maven site</name>
+            <url>file://${java.io.tmpdir}/${project.artifactId}/site-prepared</url>
+        </site>
+        <snapshotRepository>
+            <id>${gitlabSettingsServer}</id>
+            <url>${gitlabApi}/${gitlabGroupId}/packages/maven</url>
         </snapshotRepository>
     </distributionManagement>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <project.build.systemJdk>11</project.build.systemJdk>
+        <project.build.targetJdk>11</project.build.targetJdk>
+
+        <developerId>rtu</developerId>
+        <!-- gitlab FTI settings -->
+        <gitlabProjectId>493</gitlabProjectId>
+        <gitlabGroupId>495</gitlabGroupId>
+        <gitlabUrl>https://gitlab.fti-group.com/ticketshop/java</gitlabUrl>
+        <gitlabPath>gitlab.fti-group.com/ticketshop/java</gitlabPath>
+        <gitlabApi>https://gitlab.fti-group.com/api/v4/projects</gitlabApi>
+        <gitlabSettingsServer>gitlab-fti-maven</gitlabSettingsServer>
+        <!-- end -->
+
+        
+        <slf4jVersion>2.0.13</slf4jVersion>
+        
+        <maven.settings>${project.basedir}/settings.xml</maven.settings>
+        <basepom.check.skip-pmd>false</basepom.check.skip-pmd>
+        <basepom.check.skip-spotbugs>true</basepom.check.skip-spotbugs>
+        <basepom.check.skip-license>true</basepom.check.skip-license>
+        <basepom.check.skip-checkstyle>true</basepom.check.skip-checkstyle>
+
+        <basepom.javadoc.skip>false</basepom.javadoc.skip>
+        <basepom.javadoc.show>protected</basepom.javadoc.show>
+
+        <basepom.site.scm.branch>master</basepom.site.scm.branch>
+        <basepom.site.skip-deploy>false</basepom.site.skip-deploy>
+
+        <janinoVersion>3.1.12</janinoVersion>
+        <slf4jVersion>2.0.13</slf4jVersion>
+        
+        <logbackVersion>1.5.6</logbackVersion>
+        <junitVersion>4.13.2</junitVersion>
+        <commonsJexlVersion>2.0.1</commonsJexlVersion>
+        <antVersion>1.7.1</antVersion>
+        <mailVersion>1.4.1</mailVersion>
+        <springVersion>5.3.16</springVersion>
+        <velocityVersion>1.7</velocityVersion>
+        <commonsLoggingVersion>1.0.4</commonsLoggingVersion>
+        <hsqldbVersion>1.8.0.10</hsqldbVersion>
+        <h2Version>1.1.116</h2Version>
+        <rhinoJsEngineVersion>1.7.10</rhinoJsEngineVersion>
+        
     </properties>
 
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>org.scriptella</groupId>
+                <groupId>de.fti-ticketshop</groupId>
                 <artifactId>scriptella-core</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.scriptella</groupId>
+                <groupId>de.fti-ticketshop</groupId>
                 <artifactId>scriptella-core</artifactId>
                 <type>test-jar</type>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.scriptella</groupId>
+                <groupId>de.fti-ticketshop</groupId>
                 <artifactId>scriptella-drivers</artifactId>
                 <version>${project.version}</version>
             </dependency>
@@ -113,60 +179,73 @@
             <dependency>
                 <groupId>junit</groupId>
                 <artifactId>junit</artifactId>
-                <version>4.13.2</version>
+                <version>${junitVersion}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-jexl</artifactId>
-                <version>2.0.1</version>
+                <version>${commonsJexlVersion}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.ant</groupId>
                 <artifactId>ant</artifactId>
-                <version>1.7.1</version>
+                <version>${antVersion}</version>
             </dependency>
             <dependency>
                 <groupId>javax.mail</groupId>
                 <artifactId>mail</artifactId>
-                <version>1.4.1</version>
+                <version>${mailVersion}</version>
             </dependency>
             <dependency>
                 <groupId>org.codehaus.janino</groupId>
                 <artifactId>janino</artifactId>
-                <version>3.1.0</version>
+                <version>${janinoVersion}</version>
             </dependency>
             <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-context</artifactId>
-                <version>5.3.16</version>
+                <version>${springVersion}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.velocity</groupId>
                 <artifactId>velocity</artifactId>
-                <version>1.7</version>
+                <version>${velocityVersion}</version>
                 <optional>true</optional>
             </dependency>
             <dependency>
                 <groupId>commons-logging</groupId>
                 <artifactId>commons-logging</artifactId>
-                <version>1.0.4</version>
+                <version>${commonsLoggingVersion}</version>
             </dependency>
             <dependency>
                 <groupId>org.hsqldb</groupId>
                 <artifactId>hsqldb</artifactId>
-                <version>1.8.0.10</version>
+                <version>${hsqldbVersion}</version>
             </dependency>
             <dependency>
                 <groupId>com.h2database</groupId>
                 <artifactId>h2</artifactId>
-                <version>1.1.116</version>
+                <version>${h2Version}</version>
             </dependency>
             <!-- https://github.com/scriptella/scriptella-etl/issues/2 -->
             <dependency>
                 <groupId>cat.inspiracio</groupId>
                 <artifactId>rhino-js-engine</artifactId>
-                <version>1.7.10</version>
+                <version>${rhinoJsEngineVersion}</version>
             </dependency>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-api</artifactId>
+                <version>${slf4jVersion}</version>
+                <scope>provided</scope>
+            </dependency>
+            <!-- dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-simple</artifactId>
+                <version>${slf4jVersion}</version>
+                <scope>test</scope>
+                <optional>true</optional>
+            </dependency -->
         </dependencies>
     </dependencyManagement>
 
@@ -174,7 +253,9 @@
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
-            <version>1.4.5</version>
+            <version>${logbackVersion}</version>
+            <scope>test</scope>
+            <optional>true</optional>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
