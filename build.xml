@@ -46,7 +46,9 @@
     <property name="src.zip.includes" value=""/>
     <property name="examples.zip.name" value="scriptella-examples-${version}.zip"/>
     <tstamp/>
-
+    <!-- 
+    ## use maven now as default build tool.##
+    
     <target name="clean" unless="noclean">
         <description>
             Optional temp files cleanup.
@@ -87,7 +89,7 @@
                 <attribute name="Main-Class" value="scriptella.tools.launcher.EtlLauncher"/>
             </manifest>
         </jar>
-        <!-- Update samples libs -->
+        <# Update samples libs #>
         <copy todir="${basedir}/samples/lib">
             <fileset dir="${lib.dir}" excludes="spring.* h2.* lucene*"/>
             <fileset file="${build.dir}/${jar.name}"/>
@@ -169,14 +171,14 @@
             version in pom.xml. Requires maven-ant-tasks.jar to be specified in build.properties
         </description>
 
-        <!--Validation-->
+        <# Validation #>
         <fail message="Maven Ant Tasks are required to publish libraries. Set maven-ant-tasks.jar property.
         Maven Ant Tasks URL: http://maven.apache.org/ant-tasks/" unless="maven-ant-tasks.jar"/>
         <condition property="no_maven-ant-tasks">
             <available file="${maven-ant-tasks.jar}"/>
         </condition>
         <fail message="Maven Ant Tasks not found at ${no_maven-ant-tasks}" unless="no_maven-ant-tasks"/>
-        <!--End Validation-->
+        <# End Validation #>
 
         <path id="maven-ant-tasks.classpath" path="${maven-ant-tasks.jar}" />
         <typedef resource="org/apache/maven/artifact/ant/antlib.xml" uri="urn:maven-artifact-ant"
@@ -190,7 +192,7 @@
                     <arg value="-u"/>
                     <arg value="${gpg.key}"/>
                     <arg value="-ab"/>
-                    <arg value="--passphrase"/>
+                    <arg value="- -passphrase"/>
                     <arg value="${gpg.passphrase}"/>
                     <arg value="@{file}"/>
                 </exec>
@@ -206,4 +208,32 @@
         <ant dir="${drivers}" antfile="${drivers}/build.xml" target="deploy" inheritall="false"/>
         <ant dir="${tools}" antfile="${tools}/build.xml" target="deploy" inheritall="false"/>
     </target>
+-->
+
+    
+    <target name="clean">
+        <exec executable="mvn">
+            <arg value="clean" />
+        </exec>
+    </target>
+    
+    <target name="test">
+        <exec executable="mvn">
+            <arg value="test" />
+        </exec>
+    </target>
+    
+    <target name="compile">
+        <exec executable="mvn">
+            <arg value="compile" />
+        </exec>
+    </target>
+    
+    <target name="deploy" depends="clean, test, compile">
+        <exec executable="mvn">
+            <arg value="deploy" />
+        </exec>
+    </target>
+    
+
 </project>

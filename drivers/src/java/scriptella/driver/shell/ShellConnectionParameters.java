@@ -50,7 +50,7 @@ public class ShellConnectionParameters extends TextConnectionParameters {
         } else if (osBehavior == ShellOs.LINUX || osBehavior == ShellOs.MAC) {
             shellCommandArgs = new String[] {"/bin/sh", "-c"};
         } else if (osBehavior == ShellOs.WINDOWS) {
-            shellCommandArgs = new String[] {"cmd.exe", "/c"};
+            shellCommandArgs = new String[] {"cmd.exe", "/c", "**file.cmd**"};
         }
     }
 

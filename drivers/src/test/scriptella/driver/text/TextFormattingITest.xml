@@ -16,9 +16,10 @@
 
 <!DOCTYPE etl SYSTEM "http://scriptella.org/dtd/etl.dtd">
 <etl>
-    <connection id="db" driver="hsqldb" url="jdbc:hsqldb:mem:text" user="sa" password=""/>
+    <connection id="db" driver="hsqldb" url="jdbc:hsqldb:mem:text?locale=en_US" user="sa" password=""/>
 
     <connection id="text" driver="text" url="tst://testfile">
+        format.locale=en_US
         format.2.trim=true
         format.Text.trim=true
         format.DateCol.type=date

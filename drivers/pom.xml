@@ -28,9 +28,10 @@
 
     <name>Scriptella Drivers</name>
     <properties>
+        <java.version>17</java.version>
         <slf4jVersion>2.0.13</slf4jVersion>
         <scriptellaCoreVersion>1.3.99-SNAPSHOT</scriptellaCoreVersion>
-        <groovyVersion>4.0.6</groovyVersion>
+        <groovyVersion>4.0.21</groovyVersion>
         <springContextVersion>6.1.6</springContextVersion>
         <springJdbcVersion>6.1.6</springJdbcVersion>
     </properties>

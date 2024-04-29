@@ -110,6 +110,7 @@
     </distributionManagement>
 
     <properties>
+        <java.version>17</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <project.build.systemJdk>11</project.build.systemJdk>
@@ -150,7 +151,7 @@
         <mailVersion>1.4.1</mailVersion>
         <springVersion>5.3.16</springVersion>
         <velocityVersion>1.7</velocityVersion>
-        <commonsLoggingVersion>1.0.4</commonsLoggingVersion>
+        <commonsLoggingVersion>1.3.1</commonsLoggingVersion>
         <hsqldbVersion>1.8.0.10</hsqldbVersion>
         <h2Version>1.1.116</h2Version>
         <rhinoJsEngineVersion>1.7.10</rhinoJsEngineVersion>
@@ -257,6 +258,7 @@
             <scope>test</scope>
             <optional>true</optional>
         </dependency>
+       
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>

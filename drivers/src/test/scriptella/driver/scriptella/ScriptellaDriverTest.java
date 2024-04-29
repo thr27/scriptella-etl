@@ -34,7 +34,9 @@ public class ScriptellaDriverTest extends AbstractTestCase {
         } catch (EtlExecutorException e) {
             e.printStackTrace();
         }
-        assertEquals("file2_file1.xml_visible\nfile1.xml_visible\nfile2_", global);
+        int asciiValue = 10; // ASCII value for LF
+        char lfChar = (char) asciiValue;
+        assertEquals("file2_file1.xml_visible"+lfChar+"file1.xml_visible"+lfChar+"file2_", global);
     }
 
 }

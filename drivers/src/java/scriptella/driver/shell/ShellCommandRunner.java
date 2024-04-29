@@ -27,6 +27,8 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicReference;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 /**
  * Runner for shell commands, abstracting threading and process details.
@@ -41,6 +43,7 @@ public class ShellCommandRunner {
     private AtomicReference<Throwable> readInputError;
     private AtomicReference<Throwable> readErrError;
     private CountDownLatch finishedProcessingStreamsSignal;
+    private Path tempFile = null;
 
     public ShellCommandRunner(final String[] shellCmdArgs, final BufferedWriter out) {
         fullArgs = Arrays.copyOf(shellCmdArgs, shellCmdArgs.length + 1);
@@ -50,8 +53,21 @@ public class ShellCommandRunner {
 
     public void exec(String cmdText) throws IOException {
         // Change the actual command as a last arg
-        fullArgs[fullArgs.length - 1] = cmdText;
+        
+        if(fullArgs.length == 4){
+            // in windows we need to create a temp batch script
+            if(fullArgs[fullArgs.length - 2] == "**file.cmd**"){
+                tempFile = Files.createTempFile("temp", ".cmd");
+                Files.write(tempFile, ("@echo off\n"+cmdText).getBytes());
+                fullArgs[fullArgs.length - 2] = tempFile.toString();
+                fullArgs[fullArgs.length - 1] = "\n";
+            }
+        } else {
+            fullArgs[fullArgs.length - 1] = cmdText;
+        }
+        
         execAndInitReaders(fullArgs);
+
         readInputError = new AtomicReference<>();
         readErrError = new AtomicReference<>();
         finishedProcessingStreamsSignal = new CountDownLatch(2);
@@ -81,6 +97,7 @@ public class ShellCommandRunner {
             }
             finishedProcessingStreamsSignal.countDown();
         });
+        
     }
 
     /**
@@ -97,7 +114,7 @@ public class ShellCommandRunner {
         }
         if (readErrError.get() != null) {
             throw new ExecutionException("An error occurred while processing stderr of the process", readErrError.get());
-        }
+        }        
     }
 
     public void executeAfterStdoutStderrConsumed(Runnable runnable) {
@@ -105,6 +122,10 @@ public class ShellCommandRunner {
             try {
                 finishedProcessingStreamsSignal.await();
                 runnable.run();
+                if(tempFile!= null){
+                    tempFile.toFile().delete(); 
+                }
+        
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
             }
