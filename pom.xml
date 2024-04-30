@@ -66,6 +66,7 @@
         <module>core</module>
         <module>drivers</module>
         <module>tools</module>
+        <module>scriptella</module>
     </modules>
 
     <scm>
@@ -157,7 +158,12 @@
         <rhinoJsEngineVersion>1.7.10</rhinoJsEngineVersion>
         
     </properties>
-
+    <repositories>
+        <repository>
+            <id>${gitlabSettingsServer}</id>
+            <url>${gitlabApi}/${gitlabGroupId}/packages/maven</url>
+          </repository>
+    </repositories>
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -165,12 +171,7 @@
                 <artifactId>scriptella-core</artifactId>
                 <version>${project.version}</version>
             </dependency>
-            <dependency>
-                <groupId>de.fti-ticketshop</groupId>
-                <artifactId>scriptella-core</artifactId>
-                <type>test-jar</type>
-                <version>${project.version}</version>
-            </dependency>
+            
             <dependency>
                 <groupId>de.fti-ticketshop</groupId>
                 <artifactId>scriptella-drivers</artifactId>
@@ -248,6 +249,7 @@
                 <optional>true</optional>
             </dependency -->
         </dependencies>
+        
     </dependencyManagement>
 
     <dependencies>
@@ -255,7 +257,7 @@
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
             <version>${logbackVersion}</version>
-            <scope>test</scope>
+            
             <optional>true</optional>
         </dependency>
        
@@ -372,6 +374,47 @@
                         <id>attach-javadocs</id>
                         <goals>
                             <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>3.7.1</version>
+                <configuration>
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>assemble-all</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.2.4</version>
+                <configuration>
+                    <createDependencyReducedPom>false</createDependencyReducedPom>
+                    <transformers>
+                        <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                            <mainClass>scriptella.tools.launcher.EtlLauncher</mainClass>
+                        </transformer>
+                    </transformers>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
                         </goals>
                     </execution>
                 </executions>

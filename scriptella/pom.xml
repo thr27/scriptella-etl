@@ -1,0 +1,261 @@
+<?xml version="1.0"?>
+<!--
+ Copyright 2006-2010 The Scriptella Project Team.
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>de.fti-ticketshop</groupId>
+        <artifactId>scriptella-parent</artifactId>
+        <version>1.3.99-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>scriptella</artifactId>
+
+    <name>Scriptella Uber Assembly</name>
+
+    <properties>
+        <java.version>17</java.version>
+        <slf4jVersion>2.0.13</slf4jVersion>
+        <logbackVersion>1.5.6</logbackVersion>
+        <scriptellaCoreVersion>1.3.99-SNAPSHOT</scriptellaCoreVersion>
+        <groovyVersion>4.0.21</groovyVersion>
+        <springContextVersion>6.1.6</springContextVersion>
+        <springJdbcVersion>6.1.6</springJdbcVersion>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>de.fti-ticketshop</groupId>
+            <artifactId>scriptella-core</artifactId>
+            <version>${scriptellaCoreVersion}</version>
+        </dependency>
+        <dependency>
+            <groupId>de.fti-ticketshop</groupId>
+            <artifactId>scriptella-drivers</artifactId>
+            <version>${scriptellaCoreVersion}</version>
+        </dependency>
+        <dependency>
+            <groupId>de.fti-ticketshop</groupId>
+            <artifactId>scriptella-tools</artifactId>
+            <version>${scriptellaCoreVersion}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4jVersion}</version>
+
+        </dependency>
+        
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>${logbackVersion}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-jexl</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <optional>true</optional>
+        </dependency>
+
+        <dependency>
+            <groupId>org.hsqldb</groupId>
+            <artifactId>hsqldb</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.groovy</groupId>
+            <artifactId>groovy-jsr223</artifactId>
+            <version>${groovyVersion}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.mail</groupId>
+            <artifactId>mail</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.codehaus.janino</groupId>
+            <artifactId>janino</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <optional>true</optional>
+            <version>${springContextVersion}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jdbc</artifactId>
+            <optional>true</optional>
+            <version>${springJdbcVersion}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.velocity</groupId>
+            <artifactId>velocity</artifactId>
+            <optional>true</optional>
+        </dependency>
+
+        <!-- https://github.com/scriptella/scriptella-etl/issues/2
+        We are using javax.script adapter for Rhino provided by https://www.inspiracio.cat -->
+        <dependency>
+            <groupId>cat.inspiracio</groupId>
+            <artifactId>rhino-js-engine</artifactId>
+            <optional>true</optional>
+        </dependency>
+
+    </dependencies>
+
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.4.1</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <addClasspath>true</addClasspath>
+                            <mainClass>scriptella.tools.launcher.EtlLauncher</mainClass>
+                        </manifest>
+                    </archive>
+                    <excludes>
+                        <exclude>META-INF/**</exclude>
+                    </excludes>
+                </configuration>
+
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.0.0-M3</version>
+                <configuration>
+                    <skipTests>true</skipTests>
+                </configuration>
+            </plugin>
+            <!-- plugin>
+            <artifactId>maven-assembly-plugin</artifactId>
+            <version>2.4</version>
+            <executions>
+              <execution>
+                <id>go-framework-assemby</id>
+                <phase>package</phase>
+                <goals>
+                  <goal>single</goal>
+                </goals>
+                <configuration>
+                    <archive>
+                        <manifestEntries>
+                            <Built-By>Me</Built-By>
+                        </manifestEntries>
+                        <manifest>
+                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                        </manifest>
+                    </archive>
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+                    <excludes>
+                        <exclude>META-INF/*.SF</exclude>
+                        <exclude>META-INF/*.DSA</exclude>
+                        <exclude>META-INF/*.RSA</exclude>
+                    </excludes>
+                  <descriptors>
+                    <descriptor>src/main/assemble/framework_bin.xml</descriptor>
+                  </descriptors>
+                      <finalName>framework</finalName>
+                      <appendAssemblyId>false</appendAssemblyId>
+              </configuration>
+              </execution>
+            </executions>
+          </plugin -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.5.3</version>
+                <configuration>
+                    <!-- appendAssemblyId>false</appendAssemblyId-->
+
+                    <!-- descriptorRefs>
+                    <descriptorRef>jar-with-dependencies</descriptorRef>
+                </descriptorRefs -->
+                    <!-- classifier>assembly</classifier -->
+                    <filters>
+                        <filter>
+                            <artifact>*:*</artifact>
+                            <excludes>
+                                <exclude>META-INF/*.SF</exclude>
+                                <exclude>META-INF/*.DSA</exclude>
+                                <exclude>META-INF/*.RSA</exclude>
+                            </excludes>
+                        </filter>
+                    </filters>
+                    <transformers>
+                        <transformer
+                            implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                            <mainClass>scriptella.tools.launcher.EtlLauncher</mainClass>
+                        </transformer>
+                    </transformers>
+                    <shadedArtifactAttached>false</shadedArtifactAttached>
+                    <!-- shadedClassifierName>full</shadedClassifierName -->
+                    <finalName>${project.artifactId}-${project.version}</finalName>
+                    <artifactSet>
+                        <excludes>
+                            <exclude>classworlds:classworlds</exclude>
+                            <exclude>junit:junit</exclude>
+                            <exclude>jmock:*</exclude>
+                            <exclude>*:xml-apis</exclude>
+                            <exclude>org.apache.maven:lib:tests</exclude>
+                            
+                            <exclude>META-INF/*.SF</exclude>
+                            <exclude>META-INF/*.DSA</exclude>
+                            <exclude>META-INF/*.RSA</exclude>
+                            <exclude>META-INF/MANIFEST.MF</exclude>
+                        </excludes>
+                    </artifactSet>
+                </configuration>
+
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <!-- plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <version>2.8.2</version>
+                <configuration>
+                    <skip>true</skip> 
+                </configuration>
+            </plugin -->
+        </plugins>
+    </build>
+
+</project>
