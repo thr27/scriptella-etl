@@ -135,16 +135,34 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
                 <version>3.4.1</version>
+                <executions>
+                    <execution>
+                      <id>default-jar</id>
+                      <phase>package</phase>
+                    </execution>
+                  </executions>
                 <configuration>
-                    <archive>
+                    <!--archive>
                         <manifest>
-                            <addClasspath>true</addClasspath>
-                            <mainClass>scriptella.tools.launcher.EtlLauncher</mainClass>
+                            <addClasspath>false</addClasspath>
+                            <mainClass>scriptella.tools.launcher.EtlLauncherYY</mainClass>
                         </manifest>
-                    </archive>
+                    </archive-->
                     <excludes>
                         <exclude>META-INF/**</exclude>
+                        <exclude>*.SF</exclude>
+                        <exclude>*.DSA</exclude>
+                        <exclude>*.RSA</exclude>
+                        <exclude>MANIFEST.MF</exclude>
+                        <exclude>META-INF/license.txt</exclude>
+                        <exclude>META-INF/notice.txt</exclude>
+                        <exclude>META-INF/LICENSE</exclude>
+                        <exclude>META-INF/LICENSE.txt</exclude>
+                        <exclude>META-INF/NOTICE</exclude>
+                        <exclude>META-INF/DUMMY.DSA</exclude>
+                        <exclude>META-INF/DUMMY.SF</exclude>
                     </excludes>
+
                 </configuration>
 
             </plugin>
@@ -169,26 +187,45 @@
                 <artifactId>maven-shade-plugin</artifactId>
                 <version>3.5.3</version>
                 <configuration>
-                    <!-- appendAssemblyId>false</appendAssemblyId-->
-
-                    <!-- descriptorRefs>
-                    <descriptorRef>jar-with-dependencies</descriptorRef>
-                </descriptorRefs -->
-                    <!-- classifier>assembly</classifier -->
+                     
                     <filters>
                         <filter>
                             <artifact>*:*</artifact>
                             <excludes>
-                                <exclude>META-INF/*.SF</exclude>
-                                <exclude>META-INF/*.DSA</exclude>
-                                <exclude>META-INF/*.RSA</exclude>
+                                <exclude>*.SF</exclude>
+                                <exclude>*.DSA</exclude>
+                                <exclude>*.RSA</exclude>
+                                <exclude>MANIFEST.MF</exclude>
+                                <exclude>META-INF/license.txt</exclude>
+                                <exclude>META-INF/notice.txt</exclude>
+                                <exclude>META-INF/LICENSE</exclude>
+                                <exclude>META-INF/LICENSE.txt</exclude>
+                                <exclude>META-INF/NOTICE</exclude>
+                                <exclude>META-INF/DUMMY.DSA</exclude>
+                                <exclude>META-INF/DUMMY.SF</exclude>
                             </excludes>
                         </filter>
+                         
                     </filters>
                     <transformers>
                         <transformer
                             implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                            <mainClass>scriptella.tools.launcher.EtlLauncher</mainClass>
+                            <mainClass>scriptella.tools.launcher.EtlLauncherXX</mainClass>
+
+                        </transformer>
+                        <transformer implementation="org.apache.maven.plugins.shade.resource.DontIncludeResourceTransformer">
+                            <resource>META-INF/license.txt</resource>
+                            <resource>META-INF/notice.txt</resource>
+                            <resource>META-INF/LICENSE</resource>
+                            <resource>META-INF/LICENSE.txt</resource>
+                            <resource>META-INF/NOTICE</resource>
+                            <resource>META-INF/DUMMY.DSA</resource>
+                            <resource>META-INF/DUMMY.SF</resource>
+                            <resource>.SF</resource>
+                            <resource>.DSA</resource>
+                            <resource>.RSA</resource>
+                            <resource>MANIFEST.MF</resource>
+                            <resource>logback.xml</resource>
                         </transformer>
                     </transformers>
                     <shadedArtifactAttached>false</shadedArtifactAttached>
@@ -198,14 +235,14 @@
                         <excludes>
                             <exclude>classworlds:classworlds</exclude>
                             <exclude>junit:junit</exclude>
+                            <exclude>commons-logging:commons-logging</exclude>
                             <exclude>jmock:*</exclude>
                             <exclude>*:xml-apis</exclude>
                             <exclude>org.apache.maven:lib:tests</exclude>
-                            
+                            <exclude>logback.xml</exclude>
                             <exclude>META-INF/*.SF</exclude>
                             <exclude>META-INF/*.DSA</exclude>
                             <exclude>META-INF/*.RSA</exclude>
-                            <exclude>META-INF/MANIFEST.MF</exclude>
                         </excludes>
                     </artifactSet>
                 </configuration>
