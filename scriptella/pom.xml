@@ -159,6 +159,7 @@
                         <exclude>META-INF/LICENSE</exclude>
                         <exclude>META-INF/LICENSE.txt</exclude>
                         <exclude>META-INF/NOTICE</exclude>
+                        <exclude>META-INF/NOTICE.txt</exclude>
                         <exclude>META-INF/DUMMY.DSA</exclude>
                         <exclude>META-INF/DUMMY.SF</exclude>
                     </excludes>
@@ -201,6 +202,7 @@
                                 <exclude>META-INF/LICENSE</exclude>
                                 <exclude>META-INF/LICENSE.txt</exclude>
                                 <exclude>META-INF/NOTICE</exclude>
+                                <exclude>META-INF/NOTICE.txt</exclude>
                                 <exclude>META-INF/DUMMY.DSA</exclude>
                                 <exclude>META-INF/DUMMY.SF</exclude>
                             </excludes>
@@ -210,7 +212,7 @@
                     <transformers>
                         <transformer
                             implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                            <mainClass>scriptella.tools.launcher.EtlLauncherXX</mainClass>
+                            <mainClass>scriptella.tools.launcher.EtlLauncher</mainClass>
 
                         </transformer>
                         <transformer implementation="org.apache.maven.plugins.shade.resource.DontIncludeResourceTransformer">
@@ -219,6 +221,7 @@
                             <resource>META-INF/LICENSE</resource>
                             <resource>META-INF/LICENSE.txt</resource>
                             <resource>META-INF/NOTICE</resource>
+                            <resource>META-INF/NOTICE.txt</resource>
                             <resource>META-INF/DUMMY.DSA</resource>
                             <resource>META-INF/DUMMY.SF</resource>
                             <resource>.SF</resource>
